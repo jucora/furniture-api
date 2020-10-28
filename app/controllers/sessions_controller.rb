@@ -22,7 +22,6 @@ class SessionsController < ApplicationController
         if request.headers['Authorization'] != 'null'
             user = User.find(decode_token(request.headers['Authorization']))
         end
-        
         if user
             render json: {
                 logged_in: true,

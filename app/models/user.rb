@@ -8,13 +8,14 @@ class User < ApplicationRecord
     format: { with: VALID_EMAIL_REGEX },
     uniqueness: { case_sensitive: false }
 
-    has_many :skills, class_name: 'Skill', dependent: :destroy
+    has_many :customers, class_name: 'Customer', dependent: :destroy
 
-    def self.getScores userId
-        Skill.joins(:measures).select('SUM(score) as total').where('user_id =?', userId)
+    def self.currentEmployees userId
+        select('employee_id, name, rol').group("name, employee_id").where(user_id: userId )
     end
 
-    def self.currentSkills userId
-        Skill.joins(:measures).select('skill_id, name, SUM(score)').group("name, skill_id").where(user_id: userId )
+    def self.currentCustomers userId
+        # select('customer_id, name').group("name, employee_id").where(user_id: userId )
+        Customer.where(user_id: userId)
     end
 end

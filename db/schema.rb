@@ -10,34 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_25_174223) do
+ActiveRecord::Schema.define(version: 2020_10_28_025612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "measures", force: :cascade do |t|
-    t.bigint "skill_id", null: false
-    t.integer "score", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["skill_id"], name: "index_measures_on_skill_id"
-  end
-
-  create_table "skills", force: :cascade do |t|
+  create_table "customers", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name"
+    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_skills_on_user_id"
+    t.index ["user_id"], name: "index_customers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "email"
+    t.string "role"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "measures", "skills"
-  add_foreign_key "skills", "users"
+  add_foreign_key "customers", "users"
 end
